@@ -2,8 +2,8 @@
 #define DATA_STRUCTURE_CONTAINER_H
 #include <iostream>
 
-#define Max_Length 255
-const int stk_capacity = 255;
+#define Max_Length 256
+const int stk_capacity = 256;
 typedef int datatype;
 
 
@@ -338,7 +338,79 @@ namespace container{
         }
     };
 
-    class seq_queue;
+    template<typename T, int size = 256>
+    class seq_queue {
+    private:
+        int _front;
+        int _rear;
+        T storage[size];
+    public:
+        seq_queue() :_front(0), _rear(-1) {};
+
+        seq_queue(std::initializer_list<T> ll) :_front(0), _rear(-1) {
+            if (ll.size() > size) {
+                printf("out of storage.\n");
+                return;
+            }
+            else
+                for (auto element : ll)
+                    push(element);
+        };
+
+        bool is_empty() const {
+            return (_rear + 1) % size == _front;
+        }
+
+        bool is_full() const {
+            return (_rear + 2) % size == _front;
+        }
+
+        T front()const {
+            if (!is_empty())
+                return storage[_front];
+            else {
+                printf("empty queue.\n");
+                return 0xFFFFFFFF;
+            }
+        }
+
+        void push(T val) {
+            if (!is_full()) {
+                _rear = (_rear + 1) % size;
+                storage[_rear] = val;
+                return;
+            }
+            else {
+                printf("full queue.\n");
+            }
+        }
+
+
+        void pop() {
+            if (!is_empty()) {
+                this->_front = (_front + 1) % size;
+                return;
+            }
+            else
+                printf("empty queue.\n");
+        }
+
+        void clear() {
+            if (is_empty())
+                return;
+            else
+                while (!is_empty())
+                    pop();
+        }
+
+        void traverse() {
+            while (!is_empty()) {
+                printf("%d ", front());
+                pop();
+            }
+            std::endl(std::cout);
+        }
+    };
 
 
 

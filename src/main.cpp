@@ -3,20 +3,24 @@
 
 
 int main(){
-    container::linked_queue queue{1,2,3,4,5,6,7};
+
+    container::seq_queue<int> queue{ 1,2,3,4,5,6,7,8 };
     queue.traverse();
 
-    queue.clear();
-    std::cout<<queue.is_empty()<<std::endl;
 
-    queue.push(1),queue.push(2),queue.push(3);
-    std::cout << queue.front() << std::endl;
-    queue.traverse();
+    queue.push(3);
+
+    int a = 5;
+    queue.push(a);
+
+    printf("%d \n", queue.front());
+
+
 
     queue.pop();
-    queue.traverse();
+
+    printf("%d \n", queue.front());
+
 
     queue.clear();
-    std::cout<<queue.is_empty()<<std::endl;
-
 }
