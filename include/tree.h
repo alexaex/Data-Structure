@@ -97,16 +97,59 @@ namespace container {
     }
 
 
+    template<typename T, size_t capacity = 32>
+    using Array_Tree = T[capacity];
+    /*
+     *                     0
+     *            1                 2
+     *       3          4      5           6
+     *      7  8     9    10 11  12     13    14
+    */
+    // if parent node's index is i, the left child node's is (2*i)+1 and right is 2*(i+1)
 
-    template<typename T>
-    class A {
-    private:
-        T data;
-    public:
-        A(T val) :data(val) {};
-        void update(T val);
-        T& get_data() const;
+    template<typename T, size_t capacity = 32>
+    inline void heap_adjust(Array_Tree<T, capacity>& tree, int cur, int n) {
+        int i;
+        int tmp = tree[cur];
+        while (i = (2 * cur) + 1, i < n) {
+            if (i + 1 < n && tree[i] < tree[i + 1]) i++;
+            if (tree[i] <= tmp) break;
+            tree[cur] = tree[i];
+            cur = i;
+        }
+        tree[cur] = tmp;
     };
+
+
+    template<typename T, size_t capacity = 32>
+    inline void generic_heap(Array_Tree<T, capacity>& tree, int n) {
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heap_adjust(tree, i, n);
+    }
+
+    template<typename T, size_t capacity = 32>
+    inline void heap_push(Array_Tree<T, capacity>& heap, int& end, T key_value) {
+        int cur, par;
+        cur = end;
+        end++;
+        while (cur > 0) {
+            par = (cur - 1) / 2;
+            if (heap[par] >= key_value) break;
+            heap[cur] = heap[par];
+            cur = par;
+        }
+        heap[cur] = key_value;
+    }
+
+    template<typename T, size_t capacity = 32>
+    inline T heap_pop(Array_Tree<T, capacity>& heap, int& end) {
+        auto ret = heap[0];
+        heap[0] = heap[end - 1];
+        end--;
+        heap_adjust(heap, 0, end);
+        return ret;
+    }
+
 
 
 
