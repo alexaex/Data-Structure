@@ -1,7 +1,5 @@
 #ifndef CONTAINER_GRAPH_H
 #define CONTAINER_GRAPH_H
-#ifndef CONTAINER_GRAPH_H
-#define CONTAINER_GRAPH_H
 #include <iostream>
 #include <queue>
 #include <stack>
@@ -185,8 +183,5 @@ namespace container {
 
 
 }
-
-#endif //CONTAINER_GRAPH_H
-
 
 #endif //CONTAINER_GRAPH_H
