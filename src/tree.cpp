@@ -95,14 +95,6 @@ void container::pre_order_with_stack(BT root) {
     }
 }
 
-template<typename _T>
-void container::A<_T>::update(_T val) {
-    data = val;
-}
 
-template<typename _T>
-_T& container::A<_T>::get_data() const {
-    return this->data;
-}
 
 
